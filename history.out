@@ -1,0 +1,85 @@
+    1  lbblk
+    2  lsblk
+    3  nmcli dev status
+    4  nmcli dev mod enp0s3 ipv4.method auto
+    5  nmcli dev up enp0s3
+    6  hostnamectl set-hostname mephi-2026.domain.local
+    7  hostnamectl
+    8  ping -c 4 8.8.8.8 > ~/ping.out
+    9  cat ~/ping.out
+   10  dnf update -y
+   11  dnf install -y nginx libcap-ng-utils
+   12  dnf download tcpdump --destdir=/tmp
+   13  rpm -ivh /tmp/tcpdump*.rpm
+   14  rm /tmp/tcpdump*.rpm
+   15  dnf download --arch=x86_64 tcpdump --destdir=/tmp
+   16  rpm -ivh /tmp/tcpdump-*.x86_64.rpm
+   17  dnf history > ~/dnf.out
+   18  systemctl status nginx
+   19  systemctl enable --now nginx
+   20  systemctl status nginx
+   21  ss -tlnp | grep :80
+   22  curl -sl http://localhost | head -n 1
+   23  journalctl -u nginx -b > ~/journalctl.out
+   24  ls -l ~/journalctl.out
+   25  groupadd -g 4444 curators
+   26  useradd -u 5501 -m -s /bin/bash user1
+   27  useradd -u 5502 -m -s /bin/bash user2
+   28  useradd -u 5503 -m -s /bin/bash user3
+   29  useradd -u 5504 -m -s /bin/bash curator1
+   30  usermod -aG curators curator1
+   31  useradd -u 5505 -m -s /bin/bash curator2
+   32  usermod -aG curators curator2
+   33  mkdir -p /data/mephi-2026
+   34  groupadd mephi_team
+   35  chown -R :mephi_team /data/mephi-2026
+   36  usermod -aG mephi_team user1
+   37  usermod -aG mephi_team user2
+   38  usermod -aG mephi_team user3
+   39  chmod 2770 /data/mephi-2026
+   40  chmod o+rX /data/mephi-2026
+   41  ls -ld /data/mephi-2026
+   42  getcap /usr/sbin/tcpdump > ~/getcap.out
+   43  cat ~/getcap.out
+   44  chmod u-s /usr/sbin/tcpdump
+   45  setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump
+   46  getcap /usr/sbin/tcpdump
+   47  getenforce > ~/getenforce.out
+   48  cat ~/getenforce.out
+   49  cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+   50  sed -i 's|root /usr/share/nginx/html;|root /data/mephi-2026;|g' /etc/nginx/nginx.conf
+   51  chcon -t httpd_sys_content_t /data/mephi-2026
+   52  semanage fcontext -a -t httpd_sys_content_t "/data/mephi-2026(/.*)?"
+   53  dnf install -y policycoreutils-python-utils
+   54  semanage fcontext -a -t httpd_sys_content_t "/data/mephi-2026(/.*)?"
+   55  restorecon -Rv /data/mephi-2026
+   56  ls -Z /data/mephi-2026
+   57  systemctl restart nginx
+   58  systemctl status nginx
+   59  echo "minlen = 12" >> /etc/security/pwquality.conf
+   60  chage -M 90 user1
+   61  chage -M 90 user2
+   62  chage -M 90 user3
+   63  chage -M 90 curator1
+   64  chage -M 90 curator2
+   65  usermod -s /usr/sbin/nologin curator1
+   66  usermod -s /usr/sbin/nologin curator2
+   67  geten passwd curator1 curator2
+   68  getent passwd curator1 curator2
+   69  systemctl enable nginx
+   70  systemctl status nginx
+   71  echo "Hello from Student: 372757" > data/mephi-2026/index.html
+   72  echo "Hello from Student: 372757" > /data/mephi-2026/index.html
+   73  cat /data/mephi-2026/index.html
+   74  curl -s http://localhost/
+   75  cp /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+   76  nano /etc/nginx/nginx.conf
+   77  nginx -t
+   78  systemctl restart nginx
+   79  curl -s http://localhost/
+   80  ls -ldZ /data/mephi-2026
+   81  history > ~/history.out
+   82  ping -c 4 8.8.8.8 > ~/ping.out
+   83  stat /data/mephi-2026 > ~/stat.out
+   84  if 
+   85  history > ~/history.out
